@@ -1,0 +1,185 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div style="width:90%; margin : 0 auto" class="tablecontainer">
+
+        <a class="popupAgregar btn btn-primary" href="/home/save/0" style="margin-bottom : 20px ; margin-top: 20px; " >Agregar Nuevo Empleado</a>
+        <table   id="myDataTable">
+            <thead>
+                <tr>
+                    <th>Nombre </th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Fecha Nacimineto</th>
+                    <th>Departamento</th>
+                    <th>Sueldo</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            //consulta ajax Home Empleado
+            var oTable = $('#myDataTable').DataTable({
+                "ajax": {
+                    "url": '/home/GetEmpleado',
+                    "type": "get",
+                    "datatype": "json"
+
+
+                },
+                "columns": [
+                    { "data" : "Nombre" , "autoWidth": true },
+                    { "data" : "ApPaterno" , "autoWidth": true },
+                    { "data" : "ApMaterno" , "autoWidth": true },
+                   // { "data" : "FecNac" , "autoWidth": true },
+                    {
+                        "data": "FecNac", "Whidth": "50px", "render": function (data) {
+                            
+                          //  var date = new Date(parseInt(data.substr(6)));
+                            //date = new Data(date);
+                            
+                            var value = new Date
+                                (
+                                parseInt(data.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date = value.getMonth() +
+                                1 +
+                                "/" +
+                                value.getDate() +
+                                "/" +
+                                value.getFullYear()
+                                +
+                                "/ : " +
+                                value.getMinutes() +
+                                " :" +
+                                value.getSeconds();
+
+                            return date
+                        }
+                    },
+                    { "data": "Departamento", "autoWidth": true },
+                    { "data" : "sueldo", "autoWidth": true },
+                    {
+                        "data": "Clave_Emp", "Whidth": "50px", "render": function (data) {
+                            return '<a class="popup" href="/home/save/'+data+'">Editar</a> ' 
+                        }
+                            
+                    },
+                    {
+                        "data": "Clave_Emp", "Whidth": "50px", "render": function (data) {
+                            return '<a class="popup" href="/home/Delete/'+data+'">Eliminar</a> '
+                        }
+
+                    }
+                ]
+            })
+
+            $('.tablecontainer').on('click', 'a.popup', function (e) {
+
+                if (confirm("Actualizaras O Eliminaras Este Empelado Estas Seguro ")) {
+                    e.preventDefault();
+                    OpenPopup($(this).attr('href'))
+                } else {
+                    e.preventDefault();
+                }
+                
+
+            })
+
+            $('.tablecontainer').on('click', 'a.popupAgregar', function (e) {
+
+                if (confirm(" Agregaras Un Nuevo Empelado ")) {
+                    e.preventDefault();
+                    OpenPopup($(this).attr('href'))
+                } else {
+                    e.preventDefault();
+                }
+
+
+            })
+           
+           
+
+            //funcion 
+            function OpenPopup(pageUrl) {
+                var $pageContent = $('<div/>');
+                $pageContent.load(pageUrl, function () {
+                    $('#popupWindow', $pageContent).removeData('validator');
+                    $('#popupWindow', $pageContent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
+
+                });
+
+                $dialog = $('<div class = "popupWindow" style="overflow:auto" > </div>')
+                    .html($pageContent)
+                    .dialog({
+                        draggable: false,
+                        autoOpen: false, 
+                        resizable: false ,
+                        model : true ,
+                        tite: 'Popup Dialog',
+                        height: 550,
+                        width: 660,
+                        close: function () {
+                            $dialog.dialog('destroy').remove();
+
+                        }
+                    })
+                $('.popupWindow').on('submit', '#popupForm', function (e) {
+
+                    var url = $('#poppFrom')[0].action;
+                    $.ajax({
+                        type: "POST",
+                        url: url, 
+                        data : $('#popupFrom').serialize() , 
+                        suscces: function (data) {
+                            if (data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                            }
+                        }
+                    })
+                    e.preventDefault();
+                }) 
+
+                $dialog.dialog('open');
+            }
+
+        })
+
+        function myFunction(e) {
+            alert("I am an alert box!");
+            
+
+        }
+
+    </script>
+</body>
+
+</html>

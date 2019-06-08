@@ -1,0 +1,34 @@
+﻿@model Empleado.Models.Empleados
+
+<h2> Eliminar Empleado </h2>
+@using (Html.BeginForm("Delete", "home", FormMethod.Post, new { id = "popupForm" }))
+{
+    @Html.HiddenFor(a => a.Clave_Emp)
+    <div class="form-group">
+        <label>Nombre : </label>
+        <p>@Model.Nombre</p>
+    </div>
+    <div class="form-group">
+        <label>Apellido Paterno : </label>
+        <p>@Model.ApPaterno</p>
+    </div>
+    <div class="form-group">
+        <label>Apellido Materno : </label>
+        <p>@Model.ApMaterno</p>
+    </div>
+    <div class="form-group">
+        <label>Fecha Nacimineto : </label>
+        <p>@Model.FecNac</p>
+    </div>
+    <div class="form-group">
+        <label>Departamento : </label>
+        <p>@Model.Departamento</p>
+    </div>
+    <div class="form-group">
+        <label>Sueldo : </label>
+        <p>@Model.sueldo</p>
+    </div>
+    <div class="form-group">
+         <input  type="submit" class="Delete" />
+    </div>
+}

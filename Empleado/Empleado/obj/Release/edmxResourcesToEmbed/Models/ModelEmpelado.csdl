@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseEmpleadosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Departamentos">
+    <Key>
+      <PropertyRef Name="Departamento" />
+    </Key>
+    <Property Name="Departamento" Type="Int32" Nullable="false" />
+    <Property Name="Descipcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__Depar__25869641" FromRole="Departamentos" ToRole="Empleados" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="Clave_Emp" />
+    </Key>
+    <Property Name="Clave_Emp" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FecNac" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Departamento" Type="Int32" Nullable="false" />
+    <Property Name="sueldo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Empleados__Depar__25869641">
+    <End Role="Departamentos" Type="DatabaseEmpleadosModel.Departamentos" Multiplicity="1" />
+    <End Role="Empleados" Type="DatabaseEmpleadosModel.Empleados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamentos">
+        <PropertyRef Name="Departamento" />
+      </Principal>
+      <Dependent Role="Empleados">
+        <PropertyRef Name="Departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEmpleadosEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departamentos" EntityType="DatabaseEmpleadosModel.Departamentos" />
+    <EntitySet Name="Empleados" EntityType="DatabaseEmpleadosModel.Empleados" />
+    <AssociationSet Name="FK__Empleados__Depar__25869641" Association="Self.FK__Empleados__Depar__25869641">
+      <End Role="Departamentos" EntitySet="Departamentos" />
+      <End Role="Empleados" EntitySet="Empleados" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
