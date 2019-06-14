@@ -53,6 +53,12 @@ namespace Empleado.Controllers
                     dp = dc.Empleados.Where(a => a.Clave_Emp == id).FirstOrDefault();
 
                 }
+                using (lunarytix_1Entities dc = new lunarytix_1Entities())
+                {
+
+                    var DepartamentoEmp = dc.Departamentos.OrderBy(a => a.Departamento).ToList();
+                    dp.EmpleadosDepartamentos = DepartamentoEmp.ToList<Departamentos>();
+                }
 
             }
             else { 
