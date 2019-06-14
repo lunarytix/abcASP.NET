@@ -11,7 +11,8 @@ namespace Empleado.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Empleados
     {
         public int Clave_Emp { get; set; }
@@ -21,5 +22,13 @@ namespace Empleado.Models
         public System.DateTime FecNac { get; set; }
         public int Departamento { get; set; }
         public decimal sueldo { get; set; }
+
+        [NotMapped]
+    public List<Departamentos> EmpleadosDepartamentos { set; get; }
+    
+
+        
+         
     }
+    
 }

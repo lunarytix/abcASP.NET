@@ -149,6 +149,13 @@
     <Content Include="Models\ModelEmpelado.edmx.diagram">
       <DependentUpon>ModelEmpelado.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\ModelEmpleadoLunarytix.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelEmpleadoLunarytix.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelEmpleadoLunarytix.edmx.diagram">
+      <DependentUpon>ModelEmpleadoLunarytix.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Models\ModelEmpelado.Context.tt">
@@ -160,6 +167,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelEmpelado.edmx</DependentUpon>
       <LastGenOutput>ModelEmpelado.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelEmpleadoLunarytix.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelEmpleadoLunarytix.edmx</DependentUpon>
+      <LastGenOutput>ModelEmpleadoLunarytix.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelEmpleadoLunarytix.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelEmpleadoLunarytix.edmx</DependentUpon>
+      <LastGenOutput>ModelEmpleadoLunarytix.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -176,15 +193,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Departamentoss.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Departamentos.cs">
-      <DependentUpon>ModelEmpelado.tt</DependentUpon>
+      <DependentUpon>ModelEmpleadoLunarytix.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empleados.cs">
-      <DependentUpon>ModelEmpelado.tt</DependentUpon>
+      <DependentUpon>ModelEmpleadoLunarytix.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\Empleado.cs" />
     <Compile Include="Models\ModelEmpelado.Context.cs">
@@ -202,6 +220,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelEmpelado.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelEmpleadoLunarytix.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelEmpleadoLunarytix.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelEmpleadoLunarytix.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelEmpleadoLunarytix.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelEmpleadoLunarytix.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelEmpleadoLunarytix.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +245,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Home\Save.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\GetDepartamento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

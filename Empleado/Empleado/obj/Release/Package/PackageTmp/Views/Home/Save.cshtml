@@ -1,4 +1,5 @@
-﻿@model Empleado.Models.Empleados
+﻿@model Empleado.Models.Empleados 
+
 
 <h2> Save</h2>
 @using (Html.BeginForm("save", "home", FormMethod.Post, new { id = "popupForm" }))
@@ -8,6 +9,7 @@
         @Html.HiddenFor(a => a.Clave_Emp)
 
     }
+
     <div class="form-group">
         <label>Nombre :</label>
         @Html.TextBoxFor(a => a.Nombre, new { @class = "form-control" })
@@ -28,16 +30,18 @@
     </div>
     <div class="form-group">
         <label>Fecha Naciminto :</label>
-        @Html.TextBoxFor(model => model.FecNac, new { type = "date"  , @class = "form-control"})
+        @Html.TextBoxFor(model => model.FecNac, new { type = "date", @class = "form-control" })
         @*@Html.TextBoxFor(a => a.FecNac, new { @class = "form-control" })*@
         @Html.ValidationMessageFor(a => a.FecNac)
 
     </div>
     <div class="form-group">
         <label>Departamento :</label>
-        @Html.TextAreaFor(a => a.Departamento, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.Departamento)
-
+        @*@Html.TextBoxFor(a => a.Departamento, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Departamento)*@
+        
+        @Html.DropDownListFor(a => a.Departamento, new SelectList(Model.EmpleadosDepartamentos, "Departamento", "Descripcion"), "Select")
+    
     </div>
     <div class="form-group">
         <label>Sueldo :</label>
